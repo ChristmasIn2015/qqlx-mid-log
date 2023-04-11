@@ -30,7 +30,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             const rest: RestResponse<null> = {
                 code: null,
                 data: null,
-                message: exception?.message,
+                message: typeof exception === "string" ? exception : exception?.message,
             };
             response.json(rest);
         }
