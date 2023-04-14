@@ -23,7 +23,7 @@ export class LogController {
 
         // 搜索
         const match = {
-            ...(search.type && { chain: search.type }),
+            ...(search.type && { type: search.type }),
             ...(search.chain && { chain: new RegExp(search.chain) }),
             ...(search.path && { path: new RegExp(search.path) }),
             ...(search.json && { json: new RegExp(search.json) }),
