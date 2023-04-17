@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, SetMetadata, UseGuards } from "@nestjs/common";
 
-import { PATH_LOG } from "qqlx-core";
+import { ENUM_LOG, PATH_LOG, MAP_ENUM_LOG } from "qqlx-core";
 import { getLogDto, getLogRes } from "qqlx-core";
 import { UserDTO } from "qqlx-sdk";
 
@@ -23,7 +23,7 @@ export class LogController {
 
         // 搜索
         const match = {
-            ...(search.type && { type: search.type }),
+            ...([...MAP_ENUM_LOG].map((e) => e[1]?.value).includes(search.type) && { type: search.type }),
             ...(search.chain && { chain: new RegExp(search.chain) }),
             ...(search.path && { path: new RegExp(search.path) }),
             ...(search.json && { json: new RegExp(search.json) }),
