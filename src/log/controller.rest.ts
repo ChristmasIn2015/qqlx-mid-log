@@ -14,7 +14,21 @@ export class LogController {
     constructor(
         //
         private readonly LogDao: LogDao
-    ) {}
+    ) {
+        this.deleteLogs();
+    }
+
+    /** 仅保留5天内的日志 */
+    private async deleteLogs() {
+        let count = 0;
+        setInterval(async () => {
+            const endTime = Date.now() - 86400000 * 5;
+            const logs = await this.LogDao.query({ timeCreate: { $lte: endTime } });
+            const counter = await this.LogDao.count({}, { startTime: 0, endTime });
+            await this.LogDao.deleteMany(logs.map((e) => e._id));
+            console.log(++count, "delete success", counter);
+        }, 1000 * 60 * 15);
+    }
 
     @Post("/get")
     async getLog(@Body("dto") dto: getLogDto, @Body("UserDTO") UserDTO: UserDTO): Promise<getLogRes> {
