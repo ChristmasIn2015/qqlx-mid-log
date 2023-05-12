@@ -27,7 +27,7 @@ export class LogController {
             const counter = await this.LogDao.count({}, { startTime: 0, endTime });
             await this.LogDao.deleteMany(logs.map((e) => e._id));
             console.log(++count, "delete success", counter);
-        }, 1000 * 60 * 15);
+        }, 1000 * 60 * 120);
     }
 
     @Post("/get")
