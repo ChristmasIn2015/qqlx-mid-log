@@ -43,7 +43,7 @@ export class LogController {
             ...(search.json && { json: new RegExp(search.json) }),
         };
 
-        const page = await this.LogDao.page(match, dto.page);
+        const page = await this.LogDao.page(match, dto.page, { sortKey: dto.sortKey, sortValue: dto.sortValue });
         return page;
     }
 }

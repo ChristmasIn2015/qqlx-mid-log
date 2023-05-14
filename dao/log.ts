@@ -29,6 +29,10 @@ export class Log implements QQLXLog {
     chain: string;
     @Prop({ default: "" })
     json: string;
+    @Prop({ default: "" })
+    ip: string;
+    @Prop({ default: 0 })
+    duration: number;
 
     @Prop({ required: true })
     _id: string;
